@@ -545,8 +545,9 @@ static int load_helper(
         erljq_free(data);
         return 1;
     }
-    char buffer[128];
-    sprintf(buffer, "jq.module_private_data_v%d", nr_of_loads_before);
+    int buffer_size = 128;
+    char buffer[buffer_size];
+    snprintf(buffer, buffer_size, "jq.module_private_data_v%d", nr_of_loads_before);
     data->lock = enif_mutex_create(buffer);
     if (data->lock == NULL) {
         tss_delete(data->thread_local_jq_state_lru_cache_key);
